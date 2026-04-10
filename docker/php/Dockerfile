@@ -36,6 +36,3 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 
 # Install Composer globally
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Start PHP-FPM
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=4000"]
