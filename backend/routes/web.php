@@ -71,3 +71,30 @@ Route::get('/clear-cache', function () {
         'message' => 'Cache cleared'
     ]);
 });
+
+// --------------------------- Job Testing Routes ------------------------
+
+// Route without queue
+Route::get('/without-queue', function () {
+    $start = microtime(true);
+
+    sleep(5);
+
+    return [
+        'type' => 'without queue',
+        'time' => microtime(true) - $start
+    ];
+});
+
+// Route with queue
+
+Route::get('/with-queue', function () {
+    $start = microtime(true);
+
+    dispatch(new \App\Jobs\ProcessTasks());
+
+    return [
+        'type' => 'with queue',
+        'time' => microtime(true) - $start
+    ];
+});
