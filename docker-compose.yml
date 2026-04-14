@@ -48,6 +48,18 @@ services:
     restart: unless-stopped
     ports:
       - "5540:5540"
+
+  horizon:
+    build:
+      context: ./docker/php
+    container_name: horizon_container
+    command: php artisan horizon
+    restart: unless-stopped
+    depends_on:
+      - laravel_app
+      - redis
+    volumes:
+      - ./backend:/var/www/
   
 
 volumes:
