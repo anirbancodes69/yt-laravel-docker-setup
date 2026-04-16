@@ -60,6 +60,18 @@ services:
       - redis
     volumes:
       - ./backend:/var/www/
+
+  
+  scheduler:
+    build:
+      context: ./docker/php
+    container_name: scheduler_container
+    command: php artisan schedule:work
+    restart: unless-stopped
+    depends_on:
+      - laravel_app
+    volumes:
+      - ./backend:/var/www/
   
 
 volumes:
